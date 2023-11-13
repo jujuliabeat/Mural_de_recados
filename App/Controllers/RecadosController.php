@@ -22,7 +22,11 @@ class RecadosController {
 
     public function obterTodos (Request $request, Response $response, array $params){
 
-        $data = $this->repository->obterTodos();
+        $inicio = $request->getParam('inicio');
+
+        $inicio = isset($inicio) ? $inicio : '2000-01-01';
+
+        $data = $this->repository->obterTodos($inicio);
         return $response->withJson($data);
 
     }
@@ -37,7 +41,7 @@ class RecadosController {
     }
 
     public function remover(Request $request, Response $response, array $params){
-        
+
         $id = $params['id'];
         $recado = $this->repository->remover($id);
 

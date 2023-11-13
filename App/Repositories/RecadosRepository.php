@@ -15,8 +15,8 @@ class RecadosRepository {
         $this->connection = $factory->getConnection();
     }
 
-    public function obterTodos(){
-        $sql = "SELECT * FROM tb_recados ORDER BY data asc";
+    public function obterTodos($inicio = ''){
+        $sql = "SELECT * FROM tb_recados WERE data > $inicio ORDER BY data asc";
 
         $table = $this->connection->query($sql); 
         $resultados = $table->fetchAll(PDO::FETCH_ASSOC);

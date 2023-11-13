@@ -31,4 +31,4 @@ $app->add(function ($req, $res, $next) {
     $app->post('/recados', RecadosController ::class . ":cadastrar");
     $app->delete('/recados/{id}', RecadosController ::class . ":remover");
 
-$app->run();
+    $app->run();
