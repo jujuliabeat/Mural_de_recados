@@ -15,14 +15,20 @@ class RecadosRepository {
         $this->connection = $factory->getConnection();
     }
 
-    public function obterTodos($inicio = ''){
-        $sql = "SELECT * FROM tb_recados WERE data > $inicio ORDER BY data asc";
+    public function obterTodos($inicio = '', $ordenacao = 'ASC'){
+    $sql = "SELECT * FROM tb_recados
+            WHERE data > :inicio
+            ORDER BY data $ordenacao";
 
-        $table = $this->connection->query($sql); 
-        $resultados = $table->fetchAll(PDO::FETCH_ASSOC);
+    $statement = $this->connection->prepare($sql);
+    $statement->bindParam(':inicio', $inicio);
+    $statement->execute();
 
-        return $resultados;
-    }
+    $resultados = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultados;
+}
+
 
     public function cadastrar($recado){
 
